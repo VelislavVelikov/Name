@@ -1,0 +1,35 @@
+body {
+    margin-left: 40%;
+    background-color: #5ADCEE;
+    background-image: url("background.png");
+    background-repeat:no-repeat;
+    background-attachment: fixed;
+    background-position: center center;
+   
+ 
+ 	       
+}
+
+h1 {
+	margin-left: 60px;
+}
+
+#how_many {
+    margin-left: 8%;
+    margin-bottom: -10px;
+}
+
+#radio_buttons {
+
+	margin-left: 2%;
+}
+
+#buttons {
+
+	width: 180px;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}

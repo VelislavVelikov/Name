@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+
+    
+	<title> Motor calibration </title>
+    <link href="style/style.css" type="text/css" rel="stylesheet">
+	<script src="JS/motor.js"></script>
+
+</head>
+
+<body>
+	
+	<h1 style=" position: absolute; top:20px">Motor calibration</h1>
+	
+	<div style=" position: absolute;  left: 50px;  top: 250px;"> 
+        <button onclick="down();">DOWN</button><br/><br/><br/>
+		<label for="lenght_going_down">Down </label><input type="number" name="lenght_going_down" id="lenght_going_down">
+	</div>  
+	
+	<div style=" position: absolute;  top: 250px;">   
+		<button onclick="up();">UP</button><br/><br/><br/>
+		<label for="lenght_going_up">Up </label><input type="number" name="lenght_going_up" id="lenght_going_up">
+	</div>
+	
+	<div style=" position: absolute;  right: 50px;  top: 270px;"> 
+		<label for="rope_lenght">Full distance </label><input type="number" name="rope_lenght" id="rope_lenght"><br/><br/>
+		<button onclick="submit();">Submit</button><br/>
+	</div> 
+	
+</body>
+</html>

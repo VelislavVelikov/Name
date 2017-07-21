@@ -1,0 +1,59 @@
+<html>
+    <body>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script type="text/javascript">
+        let duration = 2;
+        function up() {
+            $.ajax({
+                    url: `/game/move_up/${duration}`,
+                    async: false,
+                    success: function() {
+                            console.log("Done:", arguments)
+                    }
+            });
+        };
+        function down() {
+                $.ajax({
+                    url: `/game/move_down/${duration}`,
+                    async: false,
+                    success: function() {
+                            console.log("Done:", arguments)
+                    }
+            });
+        }
+        function submit() {
+                const data = {
+                    lenght_going_up: $('#lenght_going_up').val(),
+                    lenght_going_down: $('#lenght_going_down').val(),
+                }
+                $.ajax({
+                    method: 'POST',
+                    url: `/game/calibration/${duration}`,
+                    data: JSON.stringify(data),
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    success: function() {
+                        console.log('Updated:', arguments)
+                    }
+                })
+                $.ajax({
+                    method: 'POST',
+                    url: '/game/rope_lenght/',
+                    data: JSON.stringify({'rope_lenght':$('#rope_lenght').val()}),
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    success: function() {
+                        console.log('Updated:', arguments)
+                    }
+                })
+                
+        }
+        </script>
+        <button onclick="up();">UP</button><br/>
+        <button onclick="down();">DOWN</button><br/>
+        <label for="lenght_going_up">UP</label><input type="number" name="lenght_going_up" id="lenght_going_up"><br/>
+        <label for="lenght_going_down">DOWN</label><input type="number" name="lenght_going_down" id="lenght_going_down"><br/>
+        <label for="rope_lenght">Rope length</label><input type="number" name="rope_lenght" id="rope_lenght"><br/>
+        <button onclick="submit();">Submit</button><br/>
+    </body>
+</html>
