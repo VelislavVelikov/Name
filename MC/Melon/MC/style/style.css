@@ -1,0 +1,102 @@
+html{
+    height: 100%;
+}
+body {
+    background-color: #5ADCEE;
+    background-image: url("background.png");
+    background-repeat:no-repeat;
+    background-attachment: fixed;
+    background-position: center center;
+    margin: 0;
+    height: 100%;       
+}
+
+h1, h2, h3, h4{
+    margin: 0;
+    padding: 0;
+}
+
+button{
+    cursor: pointer;
+    display: inline-block;
+}
+
+.wrapper{
+    display: table;
+    width: 100%;
+    height: 100%;
+}
+
+.page-header,
+.page-footer, 
+.content{
+    display: table-row;
+    height: 2px;
+}
+
+.content{
+    height: 100%;
+}
+
+.page-header {}
+
+    .page-header h1{
+        text-align: center;
+        padding-top: 45px;
+        color: #00004d;
+        font-size: 50px;
+        text-shadow: 1px 1px #0099ff;
+    }
+    
+
+
+.content-wrap{
+    display: table-cell;
+    vertical-align: top;
+    padding-top: 80px;
+    text-align: left;
+}
+
+
+/* [class="btn"] */
+
+.btn {
+    display: inline-block;
+    width: 100px;
+    text-align: center;
+    padding: 8px 12px;
+    background-color: #4da6ff;
+    color: darkblue;
+    border: none;
+    border-radius: 50px;
+    text-shadow: 1px 1px #0099ff;
+}
+
+    .btn[disabled]{
+        background: #ccc;
+        color: #fff;
+    }
+
+
+
+.field-box{
+    display: inline-block;
+    text-align: left;
+    margin: 0 15px 0 15px;
+}
+
+    .field-box label{
+        display: block;
+        margin: 6px 0px 2px 0px;
+        color: #00004d;
+        text-shadow: 0.5px 0.5px #0099ff;
+}
+
+        .field-box.disabled label{
+            color: #00004d;
+        }
+
+    .field-box input{
+        display: block;
+        max-width: 300px;
+    }

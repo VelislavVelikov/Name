@@ -1,0 +1,122 @@
+
+{% load static %}
+<{%static "css/style.css"%}>
+
+<html>
+
+<head>
+
+    
+	<title> Motor calibration </title>
+    <link href="{%static "css/style.css"%}" type="text/css" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script type="text/javascript">
+        let duration = 1;
+        function up() {
+	        if (confirm("Going up.") == true) {		
+	            $.ajax({
+
+	                    url: `/game/move_up/${duration}`,
+	                    async: false,
+	                    success: function() {
+	                            console.log("Done:", arguments)
+	                    }
+	            });
+	        }
+        };
+
+        function down() {
+            if (confirm("Going down.") == true) {    
+	                $.ajax({
+	                    url: `/game/move_down/${duration}`,
+	                    async: false,
+	                    success: function() {
+	                            console.log("Done:", arguments)
+	                    }
+	            });
+	        }
+        }
+
+	function submit() {
+		if (confirm("Submit?") == true) { 
+			const data = {
+				lenght_going_up: $('#lenght_going_up').val(),
+				lenght_going_down: $('#lenght_going_down').val(),
+			}
+			$.ajax({
+				method: 'POST',
+				url: `/game/calibration/${duration}`,
+				data: JSON.stringify(data),
+				contentType: 'application/json',
+				dataType: 'json',
+				success: function() {
+					console.log('Updated:', arguments)
+				}
+			})
+			$.ajax({
+				method: 'POST',
+				url: '/game/rope_lenght/',
+				data: JSON.stringify({'rope_lenght':$('#rope_lenght').val()}),
+				contentType: 'application/json',
+				dataType: 'json',
+				success: function() {
+					console.log('Updated:', arguments)
+					window.alert("You submitted successfully!")
+				}
+			})
+		}
+	}
+</script>
+
+</head>
+
+<body>
+
+	<div class="wrapper">
+		<header class="page-header">
+			<h1 style="">Motor calibration</h1>
+		</header>
+		<div class="content">
+			<div class="content-wrap">
+				<div class="field-box disabled">
+					<button class="btn" onclick="down();" id="down">Down</button>
+					<label for="lenght_going_down">Distance </label>
+					<input type="number" name="lenght_going_down" id="lenght_going_down" >
+				</div>
+				<div class="field-box disabled">
+					<button class="btn" onclick="up();" id="up"> UP</button >
+					<label for="lenght_going_up">Distance </label>
+					<input type="number" name="lenght_going_up" id="lenght_going_up" >
+					<input type="submit" 
+       style="position: absolute; left: -9999px; width: 1px; height: 1px;"
+       tabindex="-1" />
+				</div>
+				<div class="field-box disabled">
+					<button class="btn" onclick="submit();" id="submit">Submit</button><br/>
+					<label for="rope_lenght" id="fullLength">Full distance </label>
+					<input type="number" name="rope_lenght" id="rope_lenght" >
+				</div>
+			</div>
+		</div>
+		<p>
+		If you have assambled the device you can calibrate.</b>
+				Callibrating the device:</br>
+				Click “Down” button and wait until the device is running. </br>
+				Measure the unfolded length (in cm) and type the number inside the field "Distance" under "Down" button. </br></br>
+				Click “Up” button and wait until the device is running.</br>
+				Measure the length of the rope that has folded (in cm) and type the number in the field “Distance” under "Up" button.</br></br>
+				Type the distance you want to be travelled (in cm) in the field "Full distance"</br></br>
+				If a box pop up with text "You submitted successfully!" callibration is ready!</br>
+			</p>
+	</div>
+	
+</body>
+</html>
+
+
+
+
+
+
+
+

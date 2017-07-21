@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    
+	<title> Motor calibration </title>
+    <link href="style/style.css" type="text/css" rel="stylesheet">
+           <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script type="text/javascript">
+	let duration = 2;
+	function up() {
+		$.ajax({
+				url: `/game/move_up/${duration}`,
+				async: false,
+				success: function() {
+						console.log("Done:", arguments)
+				}
+		});
+	};
+
+	function down() {
+			$.ajax({
+				url: `/game/move_down/${duration}`,
+				async: false,
+				success: function() {
+						console.log("Done:", arguments)
+				}
+		});
+	}
+
+	function submit() {
+			const data = {
+				lenght_going_up: $('#lenght_going_up').val(),
+				lenght_going_down: $('#lenght_going_down').val(),
+			}
+			$.ajax({
+				method: 'POST',
+				url: `/game/calibration/${duration}`,
+				data: JSON.stringify(data),
+				contentType: 'application/json',
+				dataType: 'json',
+				success: function() {
+					console.log('Updated:', arguments)
+				}
+			})
+			$.ajax({
+				method: 'POST',
+				url: '/game/rope_lenght/',
+				data: JSON.stringify({'rope_lenght':$('#rope_lenght').val()}),
+				contentType: 'application/json',
+				dataType: 'json',
+				success: function() {
+					console.log('Updated:', arguments)
+				}
+			})
+			
+	}
+</script>
+
+</head>
+
+<body>
+
+	<div class="wrapper">
+		<header class="page-header">
+			<h1 style="">Motor calibration</h1>
+		</header>
+		<div class="content">
+			<div class="content-wrap">
+				<div class="field-box disabled">
+					<button class="btn" onclick="down();" id="down">Down</button>
+					<label for="lenght_going_down">Distance </label>
+					<input type="number" name="lenght_going_down" id="lenght_going_down" >
+				</div>
+				<div class="field-box disabled">
+					<button class="btn" onclick="down();" id="up"> UP</button >
+					<label for="lenght_going_up">Distance </label>
+					<input type="number" name="lenght_going_up" id="lenght_going_up" >
+				</div>
+				<div class="field-box disabled">
+					<button class="btn" onclick="submit();" id="submit">Submit</button><br/>
+					<label for="rope_lenght" id="fullLength">Full distance </label>
+					<input type="number" name="full_length" id="lenght_going_down" >
+				</div>
+			</div>
+		</div>
+		<footer class="page-footer">
+			&copy; 2017 allright reserved...
+		</footer>
+	</div>
+	
+</body>
+</html>
