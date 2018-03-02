@@ -1,6 +1,12 @@
+#define PHONE_LEN 15
+#define DELAY_BTW_NUMS  4000
+unsigned long last_num = 0;
+
 int old_num = 0;
 int mode_dial, num_mode;//contact
-
+int i=0;
+char str[PHONE_LEN] = {};
+int size = 10;    
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
@@ -20,7 +26,7 @@ int num = 0;
     if(old_num == HIGH && num_mode == LOW)
       num++;
     old_num = num_mode;
-    delay(5);
+    delay(3);
   }
 
   if(num) {
@@ -33,28 +39,34 @@ int num = 0;
 }
 
 
+void clear_str() {
+  for(int p = 0; p < PHONE_LEN; p++)
+        str[p] = 0;
+}
+
 void loop() {
   //Serial.println((int)digitalRead(3));
   int sha = processShaiba();
-
-  if(sha != -1)
-    Serial.println((int)sha);
-
-
-
-
-    
-  // put your main code here, to run repeatedly:
- // mode_dial = digitalRead(3);
-  
-/*
-  if(!(int)mode_dial){
-    Serial.println((int)mode_dial);
-  Serial.println("Nabirame Maikati!!1!");
-  delay(2000);
-  }else{
-  Serial.println("Mui ne nabirayu tvoia maiku!1!!11!!");
+ 
+  if(sha != -1){
+    if( i < PHONE_LEN) {
+        str[i] = (int)sha+48;
+        Serial.println((int)sha);
+        i++;
+        last_num = millis();
+    }
+//      free(str);
   }
-  */
+
+  if ( millis() >= last_num + DELAY_BTW_NUMS && i > 0){
+      Serial.print(">>");
+      Serial.println(str);
+      clear_str();
+      i = 0; 
+  }
+
+  
+  
+  
 
 }
