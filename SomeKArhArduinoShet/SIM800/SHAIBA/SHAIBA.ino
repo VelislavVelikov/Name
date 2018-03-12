@@ -4,13 +4,13 @@ unsigned long last_num = 0;
 
 int old_num = 0;
 int mode_dial, num_mode;//contact
-int i=0;
+int i = 0;
 char str[PHONE_LEN] = {};
-int size = 10;    
+int size = 10;
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
-  while(!Serial){}
+  while (!Serial) {}
   Serial.println("Ready!");
   //2=Chisla; 3=Kontakt
   pinMode(2, INPUT_PULLUP);
@@ -19,18 +19,18 @@ void setup() {
 
 
 int processShaiba() {
-int num = 0;
+  int num = 0;
 
-    for(;digitalRead(3) == LOW;) {
+  for (; digitalRead(3) == LOW;) {
     num_mode = digitalRead(2);
-    if(old_num == HIGH && num_mode == LOW)
+    if (old_num == HIGH && num_mode == LOW)
       num++;
     old_num = num_mode;
     delay(3);
   }
 
-  if(num) {
-    if(num == 10)
+  if (num) {
+    if (num == 10)
       return 0;
     //Serial.print(">>");
     //Serial.println((int)num);
@@ -40,33 +40,28 @@ int num = 0;
 
 
 void clear_str() {
-  for(int p = 0; p < PHONE_LEN; p++)
-        str[p] = 0;
+  for (int p = 0; p < PHONE_LEN; p++)
+    str[p] = 0;
 }
 
 void loop() {
   //Serial.println((int)digitalRead(3));
   int sha = processShaiba();
- 
-  if(sha != -1){
-    if( i < PHONE_LEN) {
-        str[i] = (int)sha+48;
-        Serial.println((int)sha);
-        i++;
-        last_num = millis();
+
+  if (sha != -1) {
+    if ( i < PHONE_LEN) {
+      str[i] = (int)sha + 48;
+      Serial.println((int)sha);
+      i++;
+      last_num = millis();
     }
-//      free(str);
+    //      free(str);
   }
 
-  if ( millis() >= last_num + DELAY_BTW_NUMS && i > 0){
-      Serial.print(">>");
-      Serial.println(str);
-      clear_str();
-      i = 0; 
+  if ( millis() >= last_num + DELAY_BTW_NUMS && i > 0) {
+    Serial.print(">>");
+    Serial.println(str);
+    clear_str();
+    i = 0;
   }
-
-  
-  
-  
-
 }
